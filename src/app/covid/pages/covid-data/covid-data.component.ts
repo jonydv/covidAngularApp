@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CovidService } from '../../services/covid.service';
+import { Country } from '../../../shared/interfaces/country.interface';
 
 @Component({
   selector: 'app-covid-data',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CovidDataComponent implements OnInit {
 
-  constructor() { }
+  countryData!: Country;
+
+  constructor(private covidService: CovidService) { }
 
   ngOnInit(): void {
+    this.covidService.getCovidCountryData()
+      .subscribe(data => {
+        console.log(data)
+        return this.countryData = data
+      });
   }
 
 }
